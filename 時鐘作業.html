@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        background-image: url("https://www.sow.org.tw/sites/sow/files/u11282/wallpaper-2675683.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      iframe {
+        border-radius: 50%;
+      }
+
+      #clock {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        margin: auto;
+        position: relative;
+        background-color: greenyellow;
+        border: 3px dashed black;
+      }
+      iframe:hover {
+        transform: scale(2);
+      }
+      #hour {
+        position: absolute;
+        width: 20%;
+        height: 10px;
+        background: red;
+        border-radius: 50px;
+        left: 30%;
+        top: calc(50% - 5px);
+        transform-origin: right center;
+      }
+      #minute {
+        position: absolute;
+        width: 40%;
+        height: 10px;
+        background: yellow;
+        border-radius: 50px;
+        left: 10%;
+        top: calc(50% - 5px);
+        transform-origin: right center;
+      }
+      #second {
+        position: absolute;
+        width: 45%;
+        height: 10px;
+        background: green;
+        border-radius: 50px;
+        left: 5%;
+        top: calc(50% - 5px);
+        transform-origin: right center;
+      }
+      #out {
+        margin: auto;
+      }
+      input {
+        width: 100px;
+        height: 100px;
+        background: blueviolet;
+      }
+      td {
+        font-size: 50px;
+        background: brown;
+      }
+      tr :nth-child(2) > input {
+        background: red;
+      }
+
+      .visible {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="clock">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9348647.438221691!2d130.92566664566118!3d-24.93555757150144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b30f9179891b161%3A0xf0217a90db106d0!2z6KW_6bql5YWL5ZSQ5aWI54i-5ZyL5a625YWs5ZyS!5e1!3m2!1szh-TW!2stw!4v1600155106519!5m2!1szh-TW!2stw"
+        width="300"
+        height="300"
+        frameborder="0"
+        style="border: 0"
+        allowfullscreen=""
+        aria-hidden="false"
+        tabindex="0"
+      ></iframe>
+      <div id="hour"></div>
+      <div id="minute"></div>
+      <div id="second"></div>
+    </div>
+
+    <input type="button" value="點擊記錄時間" onclick="out()" />
+    <input type="button" value="點擊開關指針" onclick="seeyou()" />
+    <input type="button" value="點擊更換指針" onclick="change()" />
+
+    <table id="out"></table>
+    <script>
+      const hour = document.getElementById("hour");
+      const minute = document.getElementById("minute");
+      const second = document.getElementById("second");
+      const setclock = () => {
+        let now = new Date();
+        let h = now.getHours();
+        let m = now.getMinutes();
+        let s = now.getSeconds();
+
+        hour.style.transform = `rotate(${h * 30 + 90}deg)`;
+        minute.style.transform = `rotate(${m * 6 + 90}deg)`;
+        second.style.transform = `rotate(${s * 6 + 90}deg)`;
+      };
+
+      setInterval(setclock, 1000);
+      setclock();
+
+      function out() {
+        let now = new Date();
+        let h = now.getHours();
+        let m = now.getMinutes();
+        let s = now.getSeconds();
+        const out = document.getElementById("out");
+        out.insertAdjacentHTML(
+          "afterbegin",
+          `<tr><td>紀錄的時間:${h}時${m}分${s}秒</td><td><input type="button" value="刪除" onclick="byebye()"></td><tr>`
+        );
+      }
+
+      function seeyou() {
+        second.classList.toggle("visible");
+        minute.classList.toggle("visible");
+        hour.classList.toggle("visible");
+      }
+
+      function byebye() {
+        alert("請稍等");
+        setTimeout(() => {
+          alert("刪除失敗");
+        }, 1000);
+      }
+
+      function change() {
+        let a = Math.floor(Math.random() * 255) + 1;
+        let b = Math.floor(Math.random() * 255) + 1;
+        let c = Math.floor(Math.random() * 255) + 1;
+        let d = Math.floor(Math.random() * 255) + 1;
+        let e = Math.floor(Math.random() * 255) + 1;
+        let f = Math.floor(Math.random() * 255) + 1;
+        let g = Math.floor(Math.random() * 255) + 1;
+        let h = Math.floor(Math.random() * 255) + 1;
+        let i = Math.floor(Math.random() * 255) + 1;
+        second.style.background = `rgb(${a}, ${b}, ${c})`;
+        minute.style.background = `rgb(${d}, ${e}, ${f})`;
+        hour.style.background = `rgb(${g}, ${h}, ${i})`;
+      }
+    </script>
+  </body>
+</html>
